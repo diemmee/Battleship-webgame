@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000;
+    font-size: 62.5%;
+}
+
+#board {
+    position: relative;
+    width: 1024px;
+    height: 863px;
+    margin: auto;
+    background: url(./assets/img/board.jpg) no-repeat;
+}
+
+#messageArea {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    color: green;
+    font-size: 3rem;
+}
+
+table {
+    position: absolute;
+    left: 173px;
+    top: 0;
+    border-spacing: 0px;
+    color: red;
+}
+
+td {
+    width: 94px;
+    height: 94px;
+}
+
+form {
+    position: absolute;
+    bottom: -50px;
+    right: 0;
+    padding: 10px;
+    background-color: rgb(83, 175, 19);
+}
+
+form input {
+    background-color: rgb(152, 207, 113) ;
+    border-color: rgb(83, 175, 19);
+    font-size: 25px;
+    height: 50px;
+    padding: 15px;
+    margin-left: 7px;
+}
+
+form, form input {
+    border-radius: 10px;
+}
+
+
+#fireButton {
+    padding: 15px;
+    height: 60px;
+}
+
+#fireButton:hover {
+    opacity: 0.8;
+}
