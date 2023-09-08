@@ -26,7 +26,7 @@ body {
 table {
     position: absolute;
     left: 173px;
-    top: 0;
+    top: 94px;
     border-spacing: 0px;
     color: red;
 }
@@ -65,4 +65,12 @@ form, form input {
 
 #fireButton:hover {
     opacity: 0.8;
+}
+
+.hit {
+    background: transparent url(./assets/img/ship.png) no-repeat center center; 
+}
+
+.miss {
+    background: transparent  url(./assets/img/miss.png) no-repeat center center; 
 }
