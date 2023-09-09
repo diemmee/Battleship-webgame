@@ -4,10 +4,13 @@ var model = {
     shipLength: 3,
     shipsSunk: 0,
 
+
+
+
     ships: [
-        { locations: ["06", "16", "26"], hits: ["", "", ""] },
-        { locations: ["24", "34", "44"], hits: ["", "", ""] },
-        { locations: ["10", "11", "12"], hits: ["", "", ""] },
+        { locations: ["", "", ""], hits: ["", "", ""] },
+        { locations: ["", "", ""], hits: ["", "", ""] },
+        { locations: ["", "", ""], hits: ["", "", ""] },
     ],
 
     fire: function (guess) {
@@ -69,7 +72,8 @@ var controller = {
             if (hit && model.shipsSunk === model.numShips) {
                 view.displayMessage(
                     "You sank all my battleship, in " +
-                        this.guesses + " guesses"
+                        this.guesses +
+                        " guesses"
                 );
             }
         }
@@ -99,3 +103,29 @@ function parseGuess(guess) {
     }
     return null;
 }
+
+function init() {
+    var fireButton = document.getElementById("fireButton");
+    fireButton.onclick = handleFireButton;
+    var guessInput = document.getElementById("guessInput");
+    guessInput.onkeypress = handleKeyPress;
+
+}
+window.onload = init;
+
+function handleKeyPress() {
+    var fireButton = document.getElementById("fireButton");
+    if (e.keyCode === 13) {
+        fireButton.click();
+        return false;
+    }
+}
+
+function handleFireButton() {
+    var guessInput = document.getElementById("guessInput");
+    var guess = guessInput.value;
+
+    controller.processGuesses(guess);
+    guessInput.value = "";
+}
+
