@@ -4,15 +4,6 @@ var model = {
     shipLength: 3,
     shipsSunk: 0,
 
-
-
-
-    ships: [
-        { locations: ["", "", ""], hits: ["", "", ""] },
-        { locations: ["", "", ""], hits: ["", "", ""] },
-        { locations: ["", "", ""], hits: ["", "", ""] },
-    ],
-
     fire: function (guess) {
         for (var i = 0; i < this.numShips; i++) {
             var ship = this.ships[i];
@@ -43,6 +34,65 @@ var model = {
         }
         return true;
     },
+
+    generationShipLocation: function () {
+        var locations;
+        for (var i = 0; i < this.numShips; i++) {
+            do {
+                locations = this.generateShip();
+            } while (this.collision(locations));
+            this.ships[i].locations = locations;
+        }
+    },
+
+    generateShip: function () {
+        var direction = Math.floor(Math.random() * 2);
+        var row, col;
+
+        if (direction == 1) {
+            //horizontal ship
+            row = Math.floor(Math.random() * this.boardSize);
+            col = Math.floor(
+                Math.random() * (this.boardSize - this.shipLength)
+            );
+        } else {
+            //vertical ship
+            row = Math.floor(
+                Math.random() * (this.boardSize - this.shipLength)
+            );
+            col = Math.floor(Math.random() * this.boardSize);
+        }
+
+        var newShipLocation = [];
+        for (var i = 0; i < this.shipLength; i++) {
+            if (direction === 1) {
+                //new horizental ship
+                newShipLocation.push(row + "" + (col + i));
+            } else {
+                //new vertical ship
+                newShipLocation.push(row + i + "" + col);
+            }
+        }
+        return newShipLocation;
+    },
+
+    collision: function (locations) {
+        for (var i = 0; i < this.numShips; i++) {
+            var ship = model.ships[i];
+            for (var j = 0; j < locations.length; j++) {
+                if (ship.locations.indexOf(locations[j]) >= 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    },
+
+    ships: [
+        { locations: ["0", "0", "0"], hits: ["", "", ""] },
+        { locations: ["0", "0", "0"], hits: ["", "", ""] },
+        { locations: ["0", "0", "0"], hits: ["", "", ""] },
+    ],
 };
 
 var view = {
@@ -108,8 +158,9 @@ function init() {
     var fireButton = document.getElementById("fireButton");
     fireButton.onclick = handleFireButton;
     var guessInput = document.getElementById("guessInput");
-    guessInput.onkeypress = handleKeyPress;
+    // guessInput.onkeypress = handleKeyPress;
 
+    model.generationShipLocation();
 }
 window.onload = init;
 
@@ -128,4 +179,3 @@ function handleFireButton() {
     controller.processGuesses(guess);
     guessInput.value = "";
 }
-
